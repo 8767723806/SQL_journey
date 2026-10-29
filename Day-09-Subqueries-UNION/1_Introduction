@@ -1,0 +1,55 @@
+# Day 9 - SQL Subqueries and UNION (Introduction)
+
+Welcome to Day 9! Today we are learning two important SQL concepts: **Subqueries** and **UNION**.
+
+## 1. What is a Subquery?
+
+A Subquery, also known as an inner query or nested query, is a SQL query written inside another SQL query.
+
+The result of the inner query is used by the outer query to retrieve the required data.
+
+### Example
+
+Find employees who earn more than the average salary.
+
+```sql
+SELECT name, salary
+FROM employees
+WHERE salary > (
+    SELECT AVG(salary)
+    FROM employees
+);
+```
+
+In this example:
+- The inner query calculates the average salary.
+- The outer query finds employees whose salary is greater than the average.
+
+## 2. What is UNION?
+
+The `UNION` operator combines the results of two or more `SELECT` statements into a single result set.
+
+### Example
+
+```sql
+SELECT name FROM employees
+UNION
+SELECT name FROM managers;
+```
+
+This query combines the names from the `employees` and `managers` tables and removes duplicate rows.
+
+## 3. Why Are They Important?
+
+- **Subqueries:** Help solve complex problems by using one query inside another.
+- **UNION:** Combines results from multiple queries into a single result set.
+- Both are useful for data analysis, reporting, and database management.
+
+## 4. Day 9 Learning Goals
+
+- Understand nested SQL queries.
+- Use subqueries with `WHERE`, `IN`, and aggregate functions.
+- Understand the difference between `UNION` and `UNION ALL`.
+- Practice combining data from multiple tables.
+
+**Learning Outcome:** Learned the fundamentals of SQL Subqueries and UNION.

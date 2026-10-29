@@ -1,0 +1,94 @@
+# Day 9 - SQL Subqueries and UNION (Important Notes)
+
+This file contains the important concepts, syntax, and rules of Subqueries and UNION.
+
+## 1. Subquery Rules
+
+- A subquery is generally enclosed in parentheses `()`.
+- It can be used in clauses such as `SELECT`, `FROM`, `WHERE`, and `HAVING`.
+- A subquery can return a single value, one column with multiple values, or multiple rows and columns, depending on its purpose.
+- The operator used depends on the result returned by the subquery.
+
+## 2. Types of Subqueries
+
+### Scalar Subquery
+
+Returns a single value.
+
+```sql
+SELECT name, salary
+FROM employees
+WHERE salary > (
+    SELECT AVG(salary)
+    FROM employees
+);
+```
+
+### Multiple-Row Subquery
+
+Returns multiple values and can be used with operators such as `IN`.
+
+```sql
+SELECT name
+FROM employees
+WHERE department_id IN (
+    SELECT id
+    FROM departments
+    WHERE department_name IN ('Sales', 'HR')
+);
+```
+
+## 3. General Syntax of a Subquery
+
+```sql
+SELECT column_name
+FROM table_name
+WHERE column_name operator (
+    SELECT column_name
+    FROM another_table
+    WHERE condition
+);
+```
+
+## 4. What is UNION?
+
+`UNION` combines the result sets of two or more `SELECT` statements.
+
+### UNION Rules
+
+- Every `SELECT` statement must return the same number of columns.
+- Corresponding columns must have compatible data types.
+- Columns must appear in the same order.
+- The final column names are generally taken from the first `SELECT` statement.
+- Use `ORDER BY` at the end to sort the combined result.
+
+## 5. UNION vs UNION ALL
+
+### UNION
+
+Removes duplicate rows from the combined result.
+
+```sql
+SELECT name FROM employees
+UNION
+SELECT name FROM managers;
+```
+
+### UNION ALL
+
+Keeps duplicate rows from both result sets.
+
+```sql
+SELECT name FROM employees
+UNION ALL
+SELECT name FROM managers;
+- Be careful with `NOT IN` if the subquery can return NULL values.```
+- Use `JOIN` when combining related columns from different tables.
+- `UNION` combines rows vertically; it does not join tables side by side.
+- Use `IN` when comparing a value against multiple values returned by a subquery.
+- Use `AVG()`, `MAX()`, `MIN()`, and `COUNT()` inside subqueries when needed.
+
+
+`UNION ALL` usually requires less processing because it does not remove duplicates.
+## 6. Important Points to Remember
+

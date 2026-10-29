@@ -1,0 +1,71 @@
+# Day 9 - SQL Subqueries and UNION (Practicals)
+
+Today, I practiced SQL Subqueries and UNION using example database tables.
+
+## Part A: Subquery Practice
+
+### 1. Find Employees Earning More Than the Average Salary
+
+```sql
+SELECT name, salary
+FROM employees
+WHERE salary > (
+    SELECT AVG(salary)
+    FROM employees
+);
+```
+
+**Explanation:** The inner query calculates the average salary, and the outer query finds employees earning more than that amount.
+
+### 2. Find Employees Working in the Sales Department
+
+```sql
+SELECT name
+FROM employees
+WHERE department_id = (
+    SELECT id
+    FROM departments
+    WHERE department_name = 'Sales'
+);
+```
+
+**Explanation:** The subquery finds the Sales department ID, and the outer query retrieves employees belonging to that department.
+
+**Note:** This query assumes that only one department has the name 'Sales'.
+
+### 3. Find Departments That Have No Employees
+
+```sql
+SELECT department_name
+FROM departments
+WHERE id NOT IN (
+    SELECT department_id
+    FROM employees
+    WHERE department_id IS NOT NULL
+);
+```
+
+**Explanation:** Returns departments whose IDs do not appear in the employees table.
+
+### 4. Find Employees Earning the Highest Salary
+
+```sql
+SELECT name, salary
+FROM employees
+WHERE salary = (
+    SELECT MAX(salary)
+    FROM employees
+);
+```
+
+**Explanation:** The subquery finds the highest salary, and the outer query returns employees earning that salary.
+
+## Part B: UNION Practice
+
+### 5. Combine Employee and Manager Names
+
+```sql
+SELECT name, 'Employee' AS Type
+FROM employees
+
+UNION
